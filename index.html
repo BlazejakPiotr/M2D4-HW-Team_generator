@@ -52,14 +52,15 @@
             </div>
             <div class="col-12 mt-5">
                 <h4 class="text-center">Waiting room</h4>
+                <div class="col-4">
+                  <input type="submit" value="Assign" onclick="assignTeams()">
+              </div>
                 <div class="col-12">
                     <ol class="waitList">
 
                     </ol>
                 </div>
-                <div class="col-4">
-                    <input type="submit" value="Assign" onclick="assignTeams()">
-                </div>
+
             </div>
         </div>
         </div>
@@ -67,12 +68,15 @@
     <script type="application/javascript">
         window.onload = function(){
         }
+
+        let assigned = []
   
         const createStudentNode = function(){
             let getList = document.querySelector('.waitList')
             let createNewNode = document.createElement('li')
             let studentName = document.getElementById('name').value
             createNewNode.innerText = studentName
+            createNewNode.classList.add('student')
             getList.appendChild(createNewNode)
         }
         const createTeams = function(){
@@ -86,12 +90,12 @@
             }
         }
         const assignTeams = function(){
-            let getStudentList = document.getElementsByTagName('li')
+            let getStudentList = document.querySelectorAll('.student')
             let teamsList = document.querySelectorAll('.team')
             let randomStudent = Math.floor(Math.random() * getStudentList.length)
             let randomTeam = Math.floor(Math.random() * teamsList.length)
             teamsList[randomTeam].appendChild(getStudentList[randomStudent])
-            getStudentList.splice([randomStudent], 1)
+            getStudentList[randomStudent].classList.remove('student')
         }
 
 
