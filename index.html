@@ -38,31 +38,34 @@
             <div class="col-12">
                 <h3 class="text-center">Welcome to the Team Creator</h1>
             </div>
-            <div class="col-12">
+            <div class="col-12 p-5">
+                    <p>Type student name to add to the waiting list</p>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                    <input type="submit" value="Add" onclick="createStudentNode()">
+            </div>
+            <div class="col-12 pl-5">
+                    <p>Type number of teams you want to create</p>
+                    <label for="number">Teams:</label>
+                    <input type="number" id="number" name="number">
+                    <input type="submit" value="Submit" onclick="createTeams()">
+            </div>
+            <div class="col-12 mt-5">
                 <h4 class="text-center">Waiting room</h4>
                 <div class="col-12">
                     <ol class="waitList">
 
                     </ol>
                 </div>
-                <div class="col-12">
-                    <p>Type student name to add to the waiting list</p>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name">
-                    <input type="submit" value="Submit" onclick="createStudentNode()">
-                </div>
-                <div class="col-12 mt-2">
-                    <p>Type number of teams you want to create</p>
-                    <label for="number">Teams:</label>
-                    <input type="number" id="number" name="number">
-                    <input type="submit" value="Submit" onclick="createTeams()">
+                <div class="col-4">
+                    <input type="submit" value="Assign" onclick="assignTeams()">
                 </div>
             </div>
+        </div>
         </div>
     </div>
     <script type="application/javascript">
         window.onload = function(){
-            createTeams()
         }
   
         const createStudentNode = function(){
@@ -75,13 +78,20 @@
         const createTeams = function(){
             let getDiv = document.querySelector('.row')
             let teamsNum = document.getElementById('number').value
-            for (i = 1; i <= teamsNum; i++){
+            for (let i = 1; i <= teamsNum; i++){
                 let createTeam = document.createElement('div')
-                createTeam.classList.add('col-4')
-                createTeam.innerHTML = 'hello ' + i
+                createTeam.classList.add('col-4', 'text-center', 'mt-3', 'team')
+                createTeam.innerHTML = '<b>Team ' + i
                 getDiv.appendChild(createTeam)
             }
-
+        }
+        const assignTeams = function(){
+            let getStudentList = document.getElementsByTagName('li')
+            let teamsList = document.querySelectorAll('.team')
+            let randomStudent = Math.floor(Math.random() * getStudentList.length)
+            let randomTeam = Math.floor(Math.random() * teamsList.length)
+            teamsList[randomTeam].appendChild(getStudentList[randomStudent])
+            getStudentList.splice([randomStudent], 1)
         }
 
 
